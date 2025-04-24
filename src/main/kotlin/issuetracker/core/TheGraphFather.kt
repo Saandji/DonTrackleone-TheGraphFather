@@ -1,6 +1,6 @@
 package issuetracker.core
 
-import com.samshend.issuetracker.core.exception.ResourceAlreadyExistsException
+import issuetracker.core.exception.ResourceAlreadyExistsException
 import issuetracker.core.model.Label
 import issuetracker.core.model.Node
 import issuetracker.core.model.Relationship

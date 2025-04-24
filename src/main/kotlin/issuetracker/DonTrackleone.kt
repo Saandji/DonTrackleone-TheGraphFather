@@ -5,7 +5,7 @@ import com.samshend.issuetracker.enums.PropertyKey
 import com.samshend.issuetracker.enums.RelationType
 import issuetracker.core.TheGraphFather
 import issuetracker.core.model.Node
-import java.util.Date
+import java.util.*
 
 
 /**
@@ -75,6 +75,5 @@ class DonTrackleone(private val graphFather: TheGraphFather) {
 
     fun createUser(id: String, name: String) =
         graphFather.createNode(id, name, mutableSetOf(EntityType.USER.toLabel()), mutableMapOf("name" to name))
-
 
 }
