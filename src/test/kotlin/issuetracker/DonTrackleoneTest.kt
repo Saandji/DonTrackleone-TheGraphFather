@@ -39,7 +39,7 @@ internal class DonTrackleoneTest {
     @BeforeEach
     fun setUp() {
         MockKAnnotations.init(this)
-        donTrackleone = DonTrackleone(graphFather)
+        donTrackleone = DonTrackleone(graphFather,,)
     }
 
     @Nested

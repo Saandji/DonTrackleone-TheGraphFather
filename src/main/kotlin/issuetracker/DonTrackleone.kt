@@ -1,6 +1,7 @@
 package issuetracker
 
 import com.samshend.issuetracker.enums.EntityType
+import com.samshend.issuetracker.enums.IssueState
 import com.samshend.issuetracker.enums.PropertyKey
 import com.samshend.issuetracker.enums.RelationType
 import issuetracker.core.TheGraphFather
@@ -14,7 +15,9 @@ import java.util.*
  *
  * TODO: extract Entities into their own Service classes e.g. IssueService, ProjectService and so forth
  */
-class DonTrackleone(private val graphFather: TheGraphFather) {
+class DonTrackleone(
+    private val graphFather: TheGraphFather
+) {
     /**
      * Creates the project.
      *
@@ -55,6 +58,7 @@ class DonTrackleone(private val graphFather: TheGraphFather) {
             name,
             mutableSetOf(EntityType.ISSUE.toLabel()),
             mutableMapOf(
+                PropertyKey.STATE.key to IssueState.OPEN,
                 PropertyKey.CREATED_AT.key to name,
             )
         )

@@ -1,6 +1,10 @@
 package com.samshend
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
+import com.samshend.issuetracker.service.IssueService
+import com.samshend.issuetracker.service.ReportService
+import com.samshend.jobscheduler.Scheduler
+import com.samshend.jobscheduler.service.CoroutineScheduler
 import issuetracker.DonTrackleone
 import issuetracker.core.TheGraphFather
 import java.util.*
@@ -9,6 +13,9 @@ import java.util.*
 // click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
 fun main() {
     val theGraphFather = TheGraphFather()
+    val issueService = IssueService(theGraphFather)
+    val scheduler: Scheduler = CoroutineScheduler()
+    val reportService = ReportService(issueService, scheduler)
     val donTrackleone = DonTrackleone(theGraphFather)
     val mapper = jacksonObjectMapper()
 
@@ -37,6 +44,20 @@ fun main() {
         projectId = midnightPizzaRun.id,
         userId = samBugfixelli.id
     )
+
+    donTrackleone.createIssue(
+        id = UUID.randomUUID().toString(),
+        name = "Cleanup the mess",
+        projectId = midnightPizzaRun.id,
+        userId = samBugfixelli.id
+    )
+
     println("New issue reported by ${samBugfixelli.name}")
     println("All records securely made in The GraphFather's book of problems.")
+
+
+    //generate report
+    val reportJobId = reportService.generateReportJob(samBugfixelli.id)
+    val report = reportService.awaitReportResult(reportJobId).result
+    println(report)
 }

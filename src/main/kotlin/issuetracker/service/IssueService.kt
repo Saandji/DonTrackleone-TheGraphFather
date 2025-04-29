@@ -11,6 +11,7 @@ import issuetracker.core.model.Node
  * The service to work with Issue Entity.
  *
  * TODO: we need the mapper from Node to Issue
+ * TODO: currectly we just have quick written functions, we need a proper API and service
  */
 class IssueService(private val graph: TheGraphFather) {
 
@@ -23,5 +24,9 @@ class IssueService(private val graph: TheGraphFather) {
             .toSet()
     }
 
+    fun listIssuesCreatedByUser(userId: String): Set<Node> {
+        val user = graph.getNode(userId) ?: throw ResourceNotFoundException("User with userId=$userId does not exist.")
+        return user.incoming[RelationType.CREATED_BY.toLabel()].orEmpty()
+    }
 
 }
